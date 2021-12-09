@@ -112,28 +112,3 @@ VALUES
     (3,(SELECT id from animals where name = 'Blossom'),'2020-05-24'),
     (1,(SELECT id from animals where name = 'Blossom'),'2021-01-11');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
