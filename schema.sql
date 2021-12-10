@@ -38,8 +38,34 @@ ALTER TABLE animals
     ADD owners_id INT,
     ADD CONSTRAINT owners_id FOREIGN KEY(owners_id) REFERENCES owners(id);
 
+/*add vets table and specialization table to create the many to many relationship*/
 
+CREATE TABLE vets (
+    id SERIAL PRIMARY KEY NOT NULL,
+    name varchar(100) NOT NULL,
+    age INT,
+    date_of_graduation DATE NOT NULL
+);
 
+/*join table to handle the relationship between vets and species tables*/
+CREATE TABLE specializations (
+    vets_id INT,
+    species_id INT,
+    CONSTRAINT vets_id FOREIGN KEY(vets_id) REFERENCES vets(id),
+    CONSTRAINT species_id FOREIGN KEY(species_id) REFERENCES species(id)
+);
+
+/*join table to handle the relationship between vets and animals tables*/
+CREATE TABLE visits (
+    vets_id INT,
+    visit_date DATE,
+    animals_id INT,
+    CONSTRAINT vets_id FOREIGN KEY(vets_id) REFERENCES vets(id),
+    CONSTRAINT animals_id FOREIGN KEY(animals_id) REFERENCES animals(id)
+);
+
+/*ALTER TABLE visits 
+ADD visit_date DATE;*/
 
 
 
