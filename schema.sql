@@ -69,5 +69,14 @@ ADD visit_date DATE;*/
 
 
 
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+
+
+
+
+
+
+
 
 
