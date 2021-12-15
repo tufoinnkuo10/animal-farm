@@ -112,3 +112,15 @@ VALUES
     (3,(SELECT id from animals where name = 'Blossom'),'2020-05-24'),
     (1,(SELECT id from animals where name = 'Blossom'),'2021-01-11');
 
+
+
+
+
+INSERT INTO visits (animals_id, vets_id, visit_date) SELECT * FROM (SELECT id FROM animals) animals_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
+-- This will add 2.500.000 owners with full_name = 'Owner <X>' and email = 'owner_<X>@email.com' (~2min approx.)
+insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4; /* 1787 ms */
+EXPLAIN ANALYZE SELECT * FROM visits where vets_id = 2; /* 600ms */
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com'; /* 3000+ms */
