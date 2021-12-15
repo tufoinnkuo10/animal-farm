@@ -28,3 +28,31 @@ CREATE TABLE invoices (
   medical_history_id INT,
   PRIMARY KEY (id)
 );
+
+CREATE TABLE invoice_items (
+  id SERIAL,
+  unit_price DECIMAL,
+  quantity INT,
+  total_price DECIMAL,
+  invoice_id INT,
+  treatment_id INT,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_invoice_id
+    FOREIGN KEY (invoice_id)
+      REFERENCES invoices(id),
+  CONSTRAINT FK_treatment_id
+    FOREIGN KEY (treatment_id)
+      REFERENCES treatments(id)
+);
+CREATE TABLE treat_medi (
+  id SERIAL,
+  med_history_id INT,
+  treat_id INT,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_treat_id
+    FOREIGN KEY (treat_id)
+      REFERENCES treatments(id),
+  CONSTRAINT FK_med_history_id
+    FOREIGN KEY (med_history_id)
+      REFERENCES medical_history(id)
+);
